@@ -36,6 +36,7 @@ registerLocaleData(en);
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,
+    SharedModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
