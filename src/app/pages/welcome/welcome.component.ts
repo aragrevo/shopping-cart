@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IProduct } from 'src/app/models/iproduct';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  products: IProduct[] = [];
+
+  constructor(
+    private productsService: ProductsService
+  ) { }
 
   ngOnInit() {
+    this.fetchProducts();
   }
+
+  fetchProducts() {
+    this.productsService.getAllProducts()
+      .subscribe((products: IProduct[]) => {
+        this.products = [...products]
+      });
+  }
+
+  handleSelectProduct(event: any) {
+    console.log(event);
+  }
+
 
 }

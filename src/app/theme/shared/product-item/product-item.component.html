@@ -1,0 +1,16 @@
+<ng-container *ngIf="product">
+    <nz-card nzHoverable [nzCover]="coverTemplate" [nzLoading]="!product" style="border-radius: 10%;">
+        <nz-card-meta [nzTitle]="product.nombre"></nz-card-meta>
+        <div class="price_section">
+            <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzTitle]="'Price'" [nzPrefix]="'$'"
+                [nzValueStyle]="{ fontSize: '1rem' }">
+            </nz-statistic>
+            <button nz-button nzType="default" nzShape="round" (click)="handleAddProduct(product)">Add to
+                cart</button>
+        </div>
+        <ng-template #coverTemplate>
+            <img [alt]="product.nombre" style="border-radius: 10%;" nz-image
+                [nzSrc]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" [nzPlaceholder]="placeholder" />
+        </ng-template>
+    </nz-card>
+</ng-container>
