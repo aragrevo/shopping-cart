@@ -12,6 +12,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 
@@ -29,6 +30,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
     NzButtonModule,
     NzStatisticModule,
     NzImageModule,
+    NzBackTopModule,
     SharedModule
   ],
   declarations: [WelcomeComponent],

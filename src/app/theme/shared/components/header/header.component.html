@@ -1,8 +1,28 @@
 <div class="app-header">
     <img src="../../../../../assets/images/hero_2.svg" alt="shopping" height="60px">
+    <h3>Shopping Cart</h3>
+
     <div style="flex: 1;"></div>
     <nz-badge [nzCount]="total$ | async" style="margin-right: 24px;">
-        <nz-avatar nzIcon="shopping-cart" [nzShape]="'square'"></nz-avatar>
+        <a [routerLink]="['/cart']">
+            <nz-avatar nzIcon="shopping-cart" [nzShape]="'square'"></nz-avatar>
+        </a>
     </nz-badge>
-    <nz-avatar nzIcon="user" style="background-color:#47A359;"></nz-avatar>
+    <nz-avatar nzIcon="user" style="background-color:#47A359;" *ngIf="user$ | async"></nz-avatar>
+    <ul nz-menu nzMode="horizontal">
+        <ng-container *ngIf="user$ | async">
+            <li nz-menu-item>
+                Cerrar Sesión
+            </li>
+        </ng-container>
+        <ng-container *ngIf="!(user$ | async)">
+            <li nz-submenu nzTitle="Ingresar" style="margin-right: 24px;">
+                <ul>
+                    <li nz-menu-item>Iniciar Sesión</li>
+                    <li nz-menu-item>Registrarse</li>
+                </ul>
+                Login
+            </li>
+        </ng-container>
+    </ul>
 </div>
