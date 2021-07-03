@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "store-79737": {
+      "hosting": {
+        "shopping-cart": [
+          "store-79737"
+        ]
+      }
+    }
+  }
+}
