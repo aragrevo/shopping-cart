@@ -10,3 +10,12 @@
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  color: #fff;
+  background: #44a357;
+  border-color: #47a359;
+}
+
+// TODO ajustar scroll

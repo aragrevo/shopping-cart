@@ -1,11 +1,11 @@
 <nz-layout>
     <nz-content>
-        <nz-card nzHoverable class="login-form">
+        <nz-card nzHoverable class="register-form">
             <h2 nz-typography>Hola!</h2>
-            <h2 nz-typography>Bienvenido!</h2>
-            <form nz-form (ngSubmit)="submitForm()" autocomplete="off" #loginForm="ngForm">
+            <h2 nz-typography>Regístrate para empezar!</h2>
+            <form nz-form (ngSubmit)="submitForm()" autocomplete="off" #registerForm="ngForm">
                 <nz-form-item>
-                    <nz-form-control nzErrorTip="Ingrese un correo!">
+                    <nz-form-control nzErrorTip="Ingresa un correo válido!">
                         <nz-form-label [nzSpan]="null">Correo electrónico</nz-form-label>
                         <nz-input-group nzPrefixIcon="user">
                             <input type="email" nz-input placeholder="Correo electrónico" autocomplete="off"
@@ -15,7 +15,7 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-control nzErrorTip="Ingrese su contraseña!">
+                    <nz-form-control nzErrorTip="Ingresa una contraseña válida! 6 o más caracteres">
                         <nz-form-label [nzSpan]="null">Contraseña</nz-form-label>
                         <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
                             <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Contraseña"
@@ -28,11 +28,8 @@
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
-                <div nz-row class="login-form-margin">
-                </div>
-                <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" nzBlock>Iniciar
-                    sesión</button>
-                O <a (click)="handleRegister()"> Regístrate! </a>
+                <button nz-button [nzType]="'primary'" nzBlock>Regístrate</button>
+                ¿Ya tienes una cuenta? <a (click)="handleLogin()"> Inicia sesión! </a>
             </form>
         </nz-card>
     </nz-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,8 +22,8 @@ export class HeaderComponent implements OnInit {
   isSmallScreen = false;
   customSettingsModal = {
     nzFooter: null,
-    nzStyle: { top: '2px' },
-    nzBodyStyle: { backgroundColor: '#f0f2f5' }
+    nzStyle: { top: '1vh' },
+    nzBodyStyle: { backgroundColor: '#f0f2f5', maxHeight: '94vh' },
   }
 
   constructor(
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private modalService: NzModalService,
     private breakpointObserver: BreakpointObserver,
+    private router: Router,
   ) {
     this.total$ = this.cartService.cart$.pipe(map(products => products.length));
     this.user$ = this.authService.hasUser();
@@ -57,6 +59,7 @@ export class HeaderComponent implements OnInit {
 
   handleLogout() {
     this.authService.logout();
+    this.router.navigateByUrl('/welcome');
   }
 
 

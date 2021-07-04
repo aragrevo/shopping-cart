@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IProduct } from 'src/app/models/iproduct';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -25,6 +24,10 @@ export class WelcomeComponent implements OnInit {
       .subscribe((products: IProduct[]) => {
         this.products = [...products]
       });
+  }
+
+  trackByFn(index: number, item: IProduct) {
+    return item.id;
   }
 
   handleSelectProduct(event: any) {
