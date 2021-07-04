@@ -8,7 +8,7 @@
 <div class="steps-content">
     <div nz-row *ngIf="current === 1">
         <div nz-col nzFlex="3" class="ph-1">
-            <app-cart-list [products]="products$" (onChangeQty)="onChangeQuantity($event)"
+            <app-cart-list [products]="(products$ | async)!" (onChangeQty)="onChangeQuantity($event)"
                 (remove)="handleRemoveProduct($event)"></app-cart-list>
         </div>
         <div nz-col nzFlex="1" class="ph-1">
@@ -17,24 +17,8 @@
         </div>
     </div>
     <div *ngIf="current == 2" class="payment">
-        <nz-card>
-            <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'" [nzTitle]="'Total a pagar'"
-                [nzValueStyle]="{color: '#47a359'}">
-            </nz-statistic>
-            <nz-divider></nz-divider>
-            <nz-statistic [nzValue]="(user$ | async)?.email" [nzTitle]="'Cliente'"></nz-statistic>
-            <nz-statistic [nzValue]="cart?.id" [nzTitle]="'Orden número'"></nz-statistic>
-            <nz-divider></nz-divider>
-            <div nz-row>
-                <div nz-col nzSpan="12" style="text-align:left">
-                    <a nz-button nzType="link" (click)="handleBack()">Regresar</a>
-                </div>
-                <div nz-col nzSpan="12">
-                    <button nz-button nzType="primary" nzBlock (click)="handlePay()" [nzLoading]="isSaving"
-                        [disabled]="isSaving">Pagar</button>
-                </div>
-            </div>
-        </nz-card>
+        <app-payment [summary]="cartSummary" [isSaving]="isSaving" [cart]="cart" [user]="user$ | async"
+            (onBack)="handleBack()" (onPay)="handlePay()"></app-payment>
     </div>
     <div *ngIf="current == 3" class="payment">
         <nz-card>

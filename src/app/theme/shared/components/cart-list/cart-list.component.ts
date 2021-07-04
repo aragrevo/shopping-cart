@@ -18,8 +18,7 @@ interface ColumnItem {
 })
 export class CartListComponent implements OnInit {
 
-  @Input()
-  products!: Observable<IProductCart[]>;
+  @Input() products: IProductCart[] = [];
 
   @Output() onChangeQty: EventEmitter<IProductCart> = new EventEmitter();
   @Output() remove: EventEmitter<number> = new EventEmitter();

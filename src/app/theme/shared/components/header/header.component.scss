@@ -6,8 +6,15 @@
   height: 64px;
   padding: 24px;
   position: relative;
+}
+
+.logo {
+  display: flex;
   img {
     height: 60px;
+  }
+  h3 {
+    margin-bottom: 0;
   }
 }
 

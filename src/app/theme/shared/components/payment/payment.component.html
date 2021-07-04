@@ -1,0 +1,18 @@
+<nz-card>
+    <nz-statistic [nzValue]="(summary.total | number)!" [nzPrefix]="'$'" [nzTitle]="'Total a pagar'"
+        [nzValueStyle]="{color: '#47a359'}">
+    </nz-statistic>
+    <nz-divider></nz-divider>
+    <nz-statistic [nzValue]="user?.email" [nzTitle]="'Cliente'"></nz-statistic>
+    <nz-statistic [nzValue]="cart?.id" [nzTitle]="'Orden número'"></nz-statistic>
+    <nz-divider></nz-divider>
+    <div nz-row>
+        <div nz-col nzSpan="12" style="text-align:left">
+            <a nz-button nzType="link" (click)="handleBack()">Regresar</a>
+        </div>
+        <div nz-col nzSpan="12">
+            <button nz-button nzType="primary" nzBlock (click)="handlePay()" [nzLoading]="isSaving"
+                [disabled]="isSaving">Pagar</button>
+        </div>
+    </div>
+</nz-card>

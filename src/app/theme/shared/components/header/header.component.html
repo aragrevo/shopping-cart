@@ -1,9 +1,11 @@
 <div class="app-header">
-    <img src="../../../../../assets/images/hero_2.svg" alt="shopping" *ngIf="isSmallScreen">
-    <h3>Shopping Games</h3>
+    <a [routerLink]="['/welcome']" class="logo">
+        <img src="../../../../../assets/images/hero_2.svg" alt="shopping" *ngIf="isSmallScreen">
+        <h3>Shopping Games</h3>
+    </a>
 
     <div style="flex: 1;"></div>
-    <nz-badge [nzCount]="(total$ | async) || 0" style="margin-right: 24px;">
+    <nz-badge [nzCount]="(total$ | async)!" style="margin-right: 24px;">
         <a [routerLink]="['/cart']">
             <nz-avatar nzIcon="shopping-cart" [nzShape]="'square'"></nz-avatar>
         </a>

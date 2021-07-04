@@ -3,13 +3,11 @@ import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { IProductCart } from 'src/app/models/iproduct-cart';
 import { Cart } from 'src/app/models/cart';
-import { StatusCart } from 'src/app/models/status-cart.enum';
+import { IProductCart } from 'src/app/models/iproduct-cart';
 import { ProductCarts } from 'src/app/models/product-carts';
+import { StatusCart } from 'src/app/models/status-cart.enum';
 import { CartSummary } from 'src/app/theme/shared/components/cart-summary/cart-summary.component';
-
-
 
 @Component({
   selector: 'app-cart',
@@ -17,13 +15,13 @@ import { CartSummary } from 'src/app/theme/shared/components/cart-summary/cart-s
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  user$: Observable<any | null>;
-  products$: Observable<IProductCart[]>;
+  cart!: Cart;
   cartSummary!: CartSummary;
-  Subs: Subscription;
   current = 1;
   isSaving = false;
-  cart!: Cart;
+  products$: Observable<IProductCart[]>;
+  Subs: Subscription;
+  user$: Observable<any | null>;
 
 
 
@@ -121,6 +119,7 @@ export class CartComponent implements OnInit, OnDestroy {
   handleBack() {
     this.current = 1;
   }
+
   handlePay() {
     this.isSaving = true;
     this.cart.status = StatusCart.completed;
