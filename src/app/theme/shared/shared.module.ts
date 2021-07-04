@@ -1,27 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgZorroAntdModule } from 'src/app/ng-zorro-antd.module';
 import { IconsProviderModule } from 'src/app/icons-provider.module';
 
 import { HeaderComponent } from './components/header/header.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
-  declarations: [ProductItemComponent, HeaderComponent],
+  declarations: [ProductItemComponent, HeaderComponent, RegisterComponent],
   imports: [
     CommonModule,
     RouterModule,
     IconsProviderModule,
     ReactiveFormsModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule
   ],
   exports: [
     ProductItemComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegisterComponent
   ]
 })
 export class SharedModule { }

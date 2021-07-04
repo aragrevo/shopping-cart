@@ -1,34 +1,25 @@
 <div class="app-header">
-    <img src="../../../../../assets/images/hero_2.svg" alt="shopping" height="60px">
-    <h3>Shopping Cart</h3>
+    <img src="../../../../../assets/images/hero_2.svg" alt="shopping" *ngIf="isSmallScreen">
+    <h3>Shopping Games</h3>
 
     <div style="flex: 1;"></div>
-    <nz-badge [nzCount]="5" style="margin-right: 24px;">
-        <!-- <nz-badge [nzCount]="total$ | async" style="margin-right: 24px;"> -->
+    <nz-badge [nzCount]="(total$ | async) || 0" style="margin-right: 24px;">
         <a [routerLink]="['/cart']">
             <nz-avatar nzIcon="shopping-cart" [nzShape]="'square'"></nz-avatar>
         </a>
     </nz-badge>
-    <!-- nzShape="circle" -->
     <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight" nzShape="round" class="menu-button">
-        <!-- <i nz-icon nzType="user"></i> -->
         <i nz-icon nzType="menu" nzTheme="outline"></i>
         <nz-avatar nzIcon="user" style="background-color:#47A359;"></nz-avatar>
     </button>
     <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
             <ng-container *ngIf="user$ | async">
-                <li nz-menu-item>
-                    Cerrar Sesión
-                </li>
+                <li nz-menu-item (click)="handleLogout()">Cerrar Sesión</li>
             </ng-container>
             <ng-container *ngIf="!(user$ | async)">
-                <li nz-menu-item>
-                    <a [routerLink]="['/auth/login']">
-                        Inicia sesión
-                    </a>
-                </li>
-                <li nz-menu-item>Regístrarte</li>
+                <li nz-menu-item (click)="handleLogin()">Inicia sesión</li>
+                <li nz-menu-item (click)="handleRegister()">Regístrarte</li>
             </ng-container>
         </ul>
     </nz-dropdown-menu>
