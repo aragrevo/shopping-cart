@@ -20,7 +20,6 @@ export class CartGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.hasUser().pipe(
       map(user => {
-        console.log(user);
         return user === null ? false : true
       }),
       tap(hasUser => {
