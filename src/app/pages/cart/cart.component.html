@@ -1,9 +1,9 @@
 <nz-page-header nzBackIcon nzTitle="Mi Carrito"></nz-page-header>
 <nz-steps [nzCurrent]="current">
     <nz-step nzTitle="Acceso" [nzDescription]="(user$ | async)?.email"></nz-step>
-    <nz-step nzTitle="Confirmar Juegos">
+    <nz-step nzTitle="Confirmar">
     </nz-step>
-    <nz-step nzTitle="Pägar"></nz-step>
+    <nz-step nzTitle="Pagar"></nz-step>
 </nz-steps>
 <div class="steps-content">
     <div nz-row *ngIf="current === 1">
@@ -68,9 +68,31 @@
     </div>
     <div *ngIf="current == 2" class="payment">
         <nz-card>
-
+            <ng-template #pay>
+                <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'" [nzTitle]="'Total a pagar'"
+                    [nzValueStyle]="{color: '#47a359'}">
+                </nz-statistic>
+                <nz-divider></nz-divider>
+                <nz-statistic [nzValue]="(user$ | async)?.email" [nzTitle]="'Cliente'"></nz-statistic>
+                <nz-statistic [nzValue]="cart?.id" [nzTitle]="'Orden número'"></nz-statistic>
+                <nz-divider></nz-divider>
+                <div nz-row>
+                    <div nz-col nzSpan="12" style="text-align:left">
+                        <a nz-button nzType="link" (click)="handleBack()">Regresar</a>
+                    </div>
+                    <div nz-col nzSpan="12">
+                        <button nz-button nzType="primary" nzBlock (click)="handlePay()" [nzLoading]="isSaving"
+                            [disabled]="isSaving">Pagar</button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-container *ngIf="isCompleted; else pay">
+                <nz-result nzStatus="success" nzTitle="Orden completada!" nzSubTitle="Gracias por tu compra">
+                    <div nz-result-extra>
+                        <a nz-button [routerLink]="['/welcome']">Continuar</a>
+                    </div>
+                </nz-result>
+            </ng-container>
         </nz-card>
-        <nz-divider></nz-divider>
-        <button nz-button nzType="primary" nzBlock (click)="handlePay()">Pagar</button>
     </div>
 </div>

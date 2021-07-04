@@ -35,8 +35,10 @@ export class CartComponent implements OnInit, OnDestroy {
   products$: Observable<IProductCart[]>;
   cartSummary!: CartSummary;
   Subs: Subscription;
-  current = 2; //TODO:
+  current = 1;
   isSaving = false;
+  isCompleted = false;
+  cart!: Cart;
 
   listOfColumns: ColumnItem[] = [
     {
@@ -106,24 +108,33 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.isSaving = true;
 
-    let cart: Cart = {
-      id: '-1',
-      status: StatusCart.pending
+    if (!this.cart) {
+      this.cart = {
+        id: '-1',
+        status: StatusCart.pending
+      }
     }
 
+    // TODO: al actualizar se deben traer de firebase
     try {
-      const response = await this.cartService.createCart(cart)
-      cart.id = response.id;
-      const products = await this.getProducts(cart.id);
+      if (this.cart.id == '-1')
+        await this.newCart();
+
+      const products = await this.getProducts(this.cart.id);
       products.forEach(async product => {
         await this.cartService.saveProductCarts(product)
       });
-      await this.cartService.updateCart(cart);
+      await this.cartService.updateCart(this.cart);
       this.current = 2;
     } catch (error) {
       console.log(error)
     }
     this.isSaving = false;
+  }
+
+  async newCart() {
+    const response = await this.cartService.createCart(this.cart)
+    this.cart.id = response.id;
   }
 
   getProducts(cart_id: string): Promise<ProductCarts[]> {
@@ -139,6 +150,21 @@ export class CartComponent implements OnInit, OnDestroy {
         resolve(productCarts)
       }).unsubscribe()
     })
+  }
+
+  handleBack() {
+    this.current = 1;
+  }
+  handlePay() {
+    this.isSaving = true;
+    this.cart.status = StatusCart.completed;
+    this.cartService.updateCart(this.cart)
+      .then(() => {
+        this.isCompleted = true;
+        this.cartService.clearCart();
+        this.current = 3;
+      })
+      .finally(() => this.isSaving = false)
   }
 
 }

@@ -22,6 +22,12 @@ export class CartService {
     private db: AngularFirestore,
   ) { }
 
+  clearCart() {
+    this.products = [];
+    this.mapProducts();
+    this.cart.next(this.products);
+  }
+
   addProductToCart(product: IProduct) {
     this.products = [...this.products, product];
     this.mapProducts();

@@ -34,5 +34,9 @@
 }
 
 .payment {
-  max-width: 350px;
+  max-width: 520px;
+  margin: 0 auto;
+  nz-card {
+    margin: 4% 0;
+  }
 }
