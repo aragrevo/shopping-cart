@@ -11,6 +11,7 @@
 
 nz-header {
   padding: 0;
+  position: fixed;
   width: 100%;
   z-index: 2;
 }
@@ -28,6 +29,7 @@ nz-header {
 
 nz-content {
   margin: 24px;
+  margin-top: 88px;
 }
 
 .inner-content {

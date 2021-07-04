@@ -1,0 +1,15 @@
+nz-layout {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+nz-content {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.login-form {
+  max-width: 350px;
+}

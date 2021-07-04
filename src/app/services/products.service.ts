@@ -18,7 +18,7 @@ export class ProductsService {
   ) { }
 
   getAllProducts() {
-    return this.db.collection<IProduct>(this.collection, r => r.limit(12)).snapshotChanges().pipe(
+    return this.db.collection<IProduct>(this.collection, r => r.limit(24)).snapshotChanges().pipe(
       map(data => data.map(x => x.payload.doc.data()))
     )
   }

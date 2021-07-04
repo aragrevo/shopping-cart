@@ -1,0 +1,38 @@
+<nz-layout>
+    <nz-content>
+        <nz-card nzHoverable class="login-form">
+            <h1 nz-typography>Hola, Bienvenido!</h1>
+            <form nz-form (ngSubmit)="submitForm()" autocomplete="off" #loginForm="ngForm">
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingrese un correo!">
+                        <nz-form-label [nzSpan]="null">Correo electrónico</nz-form-label>
+                        <nz-input-group nzPrefixIcon="user">
+                            <input type="email" nz-input placeholder="Correo electrónico" autocomplete="off"
+                                name="email" [(ngModel)]="user.email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                required />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingrese su contraseña!">
+                        <nz-form-label [nzSpan]="null">Contraseña</nz-form-label>
+                        <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Contraseña"
+                                autocomplete="off" name="password" [(ngModel)]="user.password" pattern="[A-Za-z0-9]{6,}"
+                                required />
+                            <ng-template #suffixTemplate>
+                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <div nz-row class="login-form-margin">
+                </div>
+                <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" nzBlock>Iniciar
+                    sesión</button>
+                O <a> Regístrate! </a>
+            </form>
+        </nz-card>
+    </nz-content>
+</nz-layout>

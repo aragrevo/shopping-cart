@@ -5,17 +5,17 @@ import { AuthComponent } from './theme/layout/auth/auth.component';
 import { ShoppingComponent } from './theme/layout/shopping/shopping.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: AuthComponent,
-  //   children: [
-
-  //     // {
-  //     //   path: 'auth',
-  //     //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
-  //     // },
-  //   ]
-  // },
+  {
+    path: 'auth',
+    component: AuthComponent,
+    children: [
+      { path: 'auth', redirectTo: 'auth/login', pathMatch: 'full' },
+      {
+        path: 'login',
+        loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
+      },
+    ]
+  },
   {
     path: '',
     component: ShoppingComponent,

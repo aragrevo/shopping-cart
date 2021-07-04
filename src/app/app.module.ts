@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import { IconsProviderModule } from './icons-provider.module';
+import { NgZorroAntdModule } from './ng-zorro-antd.module';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IconsProviderModule } from './icons-provider.module';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { ShoppingComponent } from './theme/layout/shopping/shopping.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from './theme/shared/shared.module';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { LoginModule } from './pages/login/login.module';
 
 registerLocaleData(en);
 
@@ -33,9 +36,10 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,
-    NzLayoutModule,
-    NzNotificationModule,
+    LoginModule,
     SharedModule,
+    ReactiveFormsModule,
+    NgZorroAntdModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],

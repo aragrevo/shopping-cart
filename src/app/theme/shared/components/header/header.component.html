@@ -3,26 +3,34 @@
     <h3>Shopping Cart</h3>
 
     <div style="flex: 1;"></div>
-    <nz-badge [nzCount]="total$ | async" style="margin-right: 24px;">
+    <nz-badge [nzCount]="5" style="margin-right: 24px;">
+        <!-- <nz-badge [nzCount]="total$ | async" style="margin-right: 24px;"> -->
         <a [routerLink]="['/cart']">
             <nz-avatar nzIcon="shopping-cart" [nzShape]="'square'"></nz-avatar>
         </a>
     </nz-badge>
-    <nz-avatar nzIcon="user" style="background-color:#47A359;" *ngIf="user$ | async"></nz-avatar>
-    <ul nz-menu nzMode="horizontal">
-        <ng-container *ngIf="user$ | async">
-            <li nz-menu-item>
-                Cerrar Sesión
-            </li>
-        </ng-container>
-        <ng-container *ngIf="!(user$ | async)">
-            <li nz-submenu nzTitle="Ingresar" style="margin-right: 24px;">
-                <ul>
-                    <li nz-menu-item>Iniciar Sesión</li>
-                    <li nz-menu-item>Registrarse</li>
-                </ul>
-                Login
-            </li>
-        </ng-container>
-    </ul>
+    <!-- nzShape="circle" -->
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight" nzShape="round" class="menu-button">
+        <!-- <i nz-icon nzType="user"></i> -->
+        <i nz-icon nzType="menu" nzTheme="outline"></i>
+        <nz-avatar nzIcon="user" style="background-color:#47A359;"></nz-avatar>
+    </button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+            <ng-container *ngIf="user$ | async">
+                <li nz-menu-item>
+                    Cerrar Sesión
+                </li>
+            </ng-container>
+            <ng-container *ngIf="!(user$ | async)">
+                <li nz-menu-item>
+                    <a [routerLink]="['/auth/login']">
+                        Inicia sesión
+                    </a>
+                </li>
+                <li nz-menu-item>Regístrarte</li>
+            </ng-container>
+        </ul>
+    </nz-dropdown-menu>
+
 </div>
