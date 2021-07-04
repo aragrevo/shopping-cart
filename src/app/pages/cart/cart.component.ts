@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Cart } from 'src/app/models/cart';
 import { StatusCart } from 'src/app/models/status-cart.enum';
 import { ProductCarts } from 'src/app/models/product-carts';
+import { CartSummary } from 'src/app/theme/shared/components/cart-summary/cart-summary.component';
 
 interface ColumnItem {
   name: string;
@@ -18,12 +19,6 @@ interface ColumnItem {
   sortDirections?: NzTableSortOrder[];
 }
 
-interface CartSummary {
-  subtotal: number;
-  discount: number;
-  delivery: number;
-  total: number;
-}
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +32,6 @@ export class CartComponent implements OnInit, OnDestroy {
   Subs: Subscription;
   current = 1;
   isSaving = false;
-  isCompleted = false;
   cart!: Cart;
 
   listOfColumns: ColumnItem[] = [
@@ -160,7 +154,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cart.status = StatusCart.completed;
     this.cartService.updateCart(this.cart)
       .then(() => {
-        this.isCompleted = true;
         this.cartService.clearCart();
         this.current = 3;
       })

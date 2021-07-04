@@ -40,59 +40,37 @@
             </nz-table>
         </div>
         <div nz-col nzFlex="1" class="ph-1">
-            <nz-card nzTitle="Tu Orden">
-                <div class="order_description">
-                    <h3 nz-typography>Subtotal</h3>
-                    <nz-statistic [nzValue]="(cartSummary.subtotal | number)!" [nzPrefix]="'$'"></nz-statistic>
-                </div>
-                <div class="order_description">
-                    <h3 nz-typography>Descuentos</h3>
-                    <nz-statistic [nzValue]="(cartSummary.discount | number)!" [nzPrefix]="'$'"></nz-statistic>
-                </div>
-                <div class="order_description">
-                    <h3 nz-typography>Envío</h3>
-                    <nz-statistic [nzValue]="(cartSummary.delivery | number)!" [nzPrefix]="'$'"></nz-statistic>
-                </div>
-                <nz-divider></nz-divider>
-                <div class="order_description">
-                    <h3 nz-typography>Total</h3>
-                    <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'"
-                        [nzValueStyle]="{color: '#47a359'}">
-                    </nz-statistic>
-                </div>
-                <nz-divider></nz-divider>
-                <button nz-button nzType="primary" nzBlock [nzLoading]="isSaving" (click)="handleFinish()"
-                    [disabled]="cartSummary.total == 0 || isSaving">Finalizar</button>
-            </nz-card>
+            <app-cart-summary [cartSummary]="cartSummary" [isSaving]="isSaving" (finish)="handleFinish()">
+            </app-cart-summary>
         </div>
     </div>
     <div *ngIf="current == 2" class="payment">
         <nz-card>
-            <ng-template #pay>
-                <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'" [nzTitle]="'Total a pagar'"
-                    [nzValueStyle]="{color: '#47a359'}">
-                </nz-statistic>
-                <nz-divider></nz-divider>
-                <nz-statistic [nzValue]="(user$ | async)?.email" [nzTitle]="'Cliente'"></nz-statistic>
-                <nz-statistic [nzValue]="cart?.id" [nzTitle]="'Orden número'"></nz-statistic>
-                <nz-divider></nz-divider>
-                <div nz-row>
-                    <div nz-col nzSpan="12" style="text-align:left">
-                        <a nz-button nzType="link" (click)="handleBack()">Regresar</a>
-                    </div>
-                    <div nz-col nzSpan="12">
-                        <button nz-button nzType="primary" nzBlock (click)="handlePay()" [nzLoading]="isSaving"
-                            [disabled]="isSaving">Pagar</button>
-                    </div>
+            <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'" [nzTitle]="'Total a pagar'"
+                [nzValueStyle]="{color: '#47a359'}">
+            </nz-statistic>
+            <nz-divider></nz-divider>
+            <nz-statistic [nzValue]="(user$ | async)?.email" [nzTitle]="'Cliente'"></nz-statistic>
+            <nz-statistic [nzValue]="cart?.id" [nzTitle]="'Orden número'"></nz-statistic>
+            <nz-divider></nz-divider>
+            <div nz-row>
+                <div nz-col nzSpan="12" style="text-align:left">
+                    <a nz-button nzType="link" (click)="handleBack()">Regresar</a>
                 </div>
-            </ng-template>
-            <ng-container *ngIf="isCompleted; else pay">
-                <nz-result nzStatus="success" nzTitle="Orden completada!" nzSubTitle="Gracias por tu compra">
-                    <div nz-result-extra>
-                        <a nz-button [routerLink]="['/welcome']">Continuar</a>
-                    </div>
-                </nz-result>
-            </ng-container>
+                <div nz-col nzSpan="12">
+                    <button nz-button nzType="primary" nzBlock (click)="handlePay()" [nzLoading]="isSaving"
+                        [disabled]="isSaving">Pagar</button>
+                </div>
+            </div>
+        </nz-card>
+    </div>
+    <div *ngIf="current == 3" class="payment">
+        <nz-card>
+            <nz-result nzStatus="success" nzTitle="Orden completada!" nzSubTitle="Gracias por tu compra">
+                <div nz-result-extra>
+                    <a nz-button [routerLink]="['/welcome']">Continuar</a>
+                </div>
+            </nz-result>
         </nz-card>
     </div>
 </div>

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'src/app/ng-zorro-antd.module';
 
 import { CartRoutingModule } from './cart-routing.module';
+import { SharedModule } from './../../theme/shared/shared.module';
 import { CartComponent } from './cart.component';
 
 
@@ -16,7 +17,8 @@ import { CartComponent } from './cart.component';
     RouterModule,
     FormsModule,
     CartRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    SharedModule
   ]
 })
 export class CartModule { }
