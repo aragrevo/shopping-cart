@@ -1,23 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { NzTableSortOrder, NzTableSortFn, NzTableFilterList, NzTableFilterFn } from 'ng-zorro-antd/table';
 import { AuthService } from 'src/app/services/auth.service';
-import { IProduct } from 'src/app/models/iproduct';
 import { CartService } from 'src/app/services/cart.service';
 import { IProductCart } from 'src/app/models/iproduct-cart';
-import { map } from 'rxjs/operators';
 import { Cart } from 'src/app/models/cart';
 import { StatusCart } from 'src/app/models/status-cart.enum';
 import { ProductCarts } from 'src/app/models/product-carts';
 import { CartSummary } from 'src/app/theme/shared/components/cart-summary/cart-summary.component';
 
-interface ColumnItem {
-  name: string;
-  sortOrder: NzTableSortOrder | null;
-  sortFn?: NzTableSortFn | null;
-  sortDirections?: NzTableSortOrder[];
-}
 
 
 @Component({
@@ -34,26 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
   isSaving = false;
   cart!: Cart;
 
-  listOfColumns: ColumnItem[] = [
-    {
-      name: 'Producto',
-      sortOrder: null,
-      sortFn: (a: IProductCart, b: IProductCart) => a.nombre.localeCompare(b.nombre),
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: 'Precio',
-      sortOrder: 'descend',
-    },
-    {
-      name: 'Cantidad',
-      sortOrder: null,
-    },
-    {
-      name: 'Subtotal',
-      sortOrder: null,
-    }
-  ];
+
 
   constructor(
     private authService: AuthService,

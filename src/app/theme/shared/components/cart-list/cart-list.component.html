@@ -1,0 +1,30 @@
+<nz-table #nzTable [nzData]="(products | async) || []" nzTableLayout="fixed">
+    <thead>
+        <tr>
+            <th *ngFor="let column of listOfColumns">
+                {{ column.name }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of nzTable.data">
+            <td> {{ data.nombre }} </td>
+            <td>
+                <nz-statistic [nzValue]="(data.Price | number: '1.0-2')!" [nzPrefix]="'$'"
+                    [nzValueStyle]="{ fontSize: '1rem' }">
+                </nz-statistic>
+            </td>
+            <td>
+                <nz-input-number [(ngModel)]="data.Quantity" [nzSize]="'large'" [nzMin]="1" [nzStep]="1"
+                    (ngModelChange)="onChangeQuantity(data)"></nz-input-number>
+            </td>
+            <td class="action">
+                <nz-statistic [nzValue]="(data.Quantity * data.Price | number: '1.0-2')!" [nzPrefix]="'$'"
+                    [nzValueStyle]="{ fontSize: '1rem' }">
+                </nz-statistic>
+                <button nz-button nzType="default" nzShape="circle" (click)="handleRemoveProduct(data.id)"><i nz-icon
+                        nzType="close"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

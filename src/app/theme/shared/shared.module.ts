@@ -28,6 +28,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     ProductItemComponent,
     HeaderComponent,
     RegisterComponent,
+    CartListComponent,
     CartSummaryComponent,
     PaymentComponent,
   ]
