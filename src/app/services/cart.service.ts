@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { Cart } from '../models/cart';
 import { IProduct } from '../models/iproduct';
 import { IProductCart } from '../models/iproduct-cart';
+import { ProductCarts } from '../models/product-carts';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +18,28 @@ export class CartService {
   cart$ = this.cart.asObservable();
   cartMapped$ = this.cartMapped.asObservable();
 
-  constructor() { }
+  constructor(
+    private db: AngularFirestore,
+  ) { }
 
   addProductToCart(product: IProduct) {
     this.products = [...this.products, product];
+    this.mapProducts();
+    this.cart.next(this.products);
+  }
+
+  removeProductToCart(productId: number) {
+    this.products = this.products.filter(p => p.id !== productId);
+    this.mapProducts();
+    this.cart.next(this.products);
+  }
+
+  updateProductToCart(product: IProductCart) {
+    // TODO: al actualizar se cambia el orden
+    this.products = this.products.filter(p => p.id !== product.id);
+    for (let index = 0; index < product.Quantity; index++) {
+      this.products = [...this.products, product];
+    }
     this.mapProducts();
     this.cart.next(this.products);
   }
@@ -40,5 +61,17 @@ export class CartService {
     }, productsCart);
 
     this.cartMapped.next(this.productsInCart);
+  }
+
+  createCart(cart: Cart) {
+    return this.db.collection<Cart>('carts').add(cart)
+  }
+
+  updateCart(cart: Cart) {
+    return this.db.collection<Cart>('carts').doc(cart.id).set(cart);
+  }
+
+  saveProductCarts(productCard: ProductCarts) {
+    return this.db.collection<ProductCarts>('product_carts').add(productCard)
   }
 }

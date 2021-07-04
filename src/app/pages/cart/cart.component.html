@@ -1,3 +1,76 @@
-<nz-page-header class="site-page-header" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle">
-</nz-page-header>
-<p>cart works!</p>
+<nz-page-header nzBackIcon nzTitle="Mi Carrito"></nz-page-header>
+<nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="Acceso" [nzDescription]="(user$ | async)?.email"></nz-step>
+    <nz-step nzTitle="Confirmar Juegos">
+    </nz-step>
+    <nz-step nzTitle="Pägar"></nz-step>
+</nz-steps>
+<div class="steps-content">
+    <div nz-row *ngIf="current === 1">
+        <div nz-col nzFlex="3" class="ph-1">
+            <nz-table #nzTable [nzData]="(products$ | async) || []" nzTableLayout="fixed">
+                <thead>
+                    <tr>
+                        <th *ngFor="let column of listOfColumns">
+                            {{ column.name }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of nzTable.data">
+                        <td> {{ data.nombre }} </td>
+                        <td>
+                            <nz-statistic [nzValue]="(data.Price | number: '1.0-2')!" [nzPrefix]="'$'"
+                                [nzValueStyle]="{ fontSize: '1rem' }">
+                            </nz-statistic>
+                        </td>
+                        <td>
+                            <nz-input-number [(ngModel)]="data.Quantity" [nzSize]="'large'" [nzMin]="1" [nzStep]="1"
+                                (ngModelChange)="onChangeQuantity(data)"></nz-input-number>
+                        </td>
+                        <td class="action">
+                            <nz-statistic [nzValue]="(data.Quantity * data.Price | number: '1.0-2')!" [nzPrefix]="'$'"
+                                [nzValueStyle]="{ fontSize: '1rem' }">
+                            </nz-statistic>
+                            <button nz-button nzType="default" nzShape="circle"
+                                (click)="handleRemoveProduct(data.id)"><i nz-icon nzType="close"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <div nz-col nzFlex="1" class="ph-1">
+            <nz-card nzTitle="Tu Orden">
+                <div class="order_description">
+                    <h3 nz-typography>Subtotal</h3>
+                    <nz-statistic [nzValue]="(cartSummary.subtotal | number)!" [nzPrefix]="'$'"></nz-statistic>
+                </div>
+                <div class="order_description">
+                    <h3 nz-typography>Descuentos</h3>
+                    <nz-statistic [nzValue]="(cartSummary.discount | number)!" [nzPrefix]="'$'"></nz-statistic>
+                </div>
+                <div class="order_description">
+                    <h3 nz-typography>Envío</h3>
+                    <nz-statistic [nzValue]="(cartSummary.delivery | number)!" [nzPrefix]="'$'"></nz-statistic>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="order_description">
+                    <h3 nz-typography>Total</h3>
+                    <nz-statistic [nzValue]="(cartSummary.total | number)!" [nzPrefix]="'$'"
+                        [nzValueStyle]="{color: '#47a359'}">
+                    </nz-statistic>
+                </div>
+                <nz-divider></nz-divider>
+                <button nz-button nzType="primary" nzBlock [nzLoading]="isSaving" (click)="handleFinish()"
+                    [disabled]="cartSummary.total == 0 || isSaving">Finalizar</button>
+            </nz-card>
+        </div>
+    </div>
+    <div *ngIf="current == 2" class="payment">
+        <nz-card>
+
+        </nz-card>
+        <nz-divider></nz-divider>
+        <button nz-button nzType="primary" nzBlock (click)="handlePay()">Pagar</button>
+    </div>
+</div>

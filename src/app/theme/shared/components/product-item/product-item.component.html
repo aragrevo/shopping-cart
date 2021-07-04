@@ -2,12 +2,11 @@
     <nz-card nzHoverable [nzCover]="coverTemplate" [nzLoading]="!product" style="border-radius: 10%;">
         <nz-card-meta [nzTitle]="product.nombre"></nz-card-meta>
         <div class="price_section">
-            <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzTitle]="'Price'" [nzPrefix]="'$'"
+            <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzTitle]="'Precio'" [nzPrefix]="'$'"
                 [nzValueStyle]="{ fontSize: '1rem' }">
             </nz-statistic>
             <nz-badge [nzCount]="(quantity$ | async) || 0" style="margin-right: 24px;">
-                <button nz-button nzType="default" nzShape="round" (click)="handleAddProduct(product)">Add to
-                    cart</button>
+                <button nz-button nzType="default" nzShape="round" (click)="handleAddProduct(product)">Agregar</button>
             </nz-badge>
         </div>
         <ng-template #coverTemplate>
