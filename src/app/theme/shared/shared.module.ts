@@ -13,10 +13,11 @@ import { CartListComponent } from './components/cart-list/cart-list.component';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { FilterProductsPipe } from './pipes/filter.pipe';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 
 @NgModule({
-  declarations: [ProductItemComponent, HeaderComponent, RegisterComponent, CartListComponent, CartSummaryComponent, PaymentComponent, FilterProductsPipe],
+  declarations: [ProductItemComponent, HeaderComponent, RegisterComponent, CartListComponent, CartSummaryComponent, PaymentComponent, FilterProductsPipe, ProductDetailComponent],
   imports: [
     CommonModule,
     RouterModule,

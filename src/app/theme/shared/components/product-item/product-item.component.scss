@@ -2,9 +2,20 @@
   overflow: hidden;
 }
 
+.ant-card-cover {
+  position: relative;
+}
+
 .price_section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+}
+
+.button_detail {
+  top: 0;
+  position: absolute;
+  right: 0;
+  width: 32px;
 }

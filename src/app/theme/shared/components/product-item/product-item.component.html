@@ -12,6 +12,8 @@
         <ng-template #coverTemplate>
             <img [alt]="product.nombre" style="border-radius: 10%;"
                 [src]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" />
+            <button nz-button nzShape="circle" nzType="primary" class="button_detail" (click)="handleDetail(product)"><i
+                    nz-icon nzType="more"></i></button>
         </ng-template>
     </nz-card>
 </ng-container>

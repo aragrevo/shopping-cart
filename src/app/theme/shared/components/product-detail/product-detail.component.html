@@ -1,0 +1,17 @@
+<img nz-image width="348px" height="300px" [nzSrc]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'"
+    [nzFallback]="fallback" [alt]="product.nombre" />
+
+<div class="content">
+
+    <nz-descriptions [nzTitle]="product.nombre" [nzColon]="false">
+        <nz-descriptions-item>
+            {{product['descripción']}}
+        </nz-descriptions-item>
+    </nz-descriptions>
+    <button nz-button nzType="primary" [nzSize]="'large'" nzShape="round" (click)="handleAddProduct()">
+        <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzPrefix]="'$'"
+            [nzValueStyle]="{ fontSize: '1rem', color: '#fff'}">
+        </nz-statistic>
+        - Agregar
+    </button>
+</div>

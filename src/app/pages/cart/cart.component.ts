@@ -138,6 +138,3 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-// TODO: buscador
