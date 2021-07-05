@@ -1,7 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
-// Colors
+::-webkit-scrollbar {
+  width: 8px;
+
+  &-track {
+    background: #fff;
+  }
+
+  &-thumb {
+    background: #47a359;
+  }
+}
+
+::root {
+  scrollbar-color: #fff #47a359 !important;
+  scrollbar-width: thin !important;
+}
 
 .ant-btn-primary {
   color: #fff;
@@ -15,9 +30,6 @@
   background: #44a357;
   border-color: #47a359;
 }
-
-// TODO ajustar scroll
-// TODO ajustar wellcome small devices
 
 .ant-steps-item-icon .ant-steps-icon {
   color: #47a359;
