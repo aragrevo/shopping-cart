@@ -1,13 +1,25 @@
 <nz-back-top></nz-back-top>
-<ng-container *ngIf="products.length == 0">
-    <nz-space nzSize="middle">
-        <nz-skeleton-element nzType="image" [nzActive]="true"></nz-skeleton-element>
-    </nz-space>
-    <nz-skeleton [nzActive]="true"></nz-skeleton>
-</ng-container>
+
+<nz-list nzItemLayout="vertical" [nzLoading]="products.length == 0" nzGrid>
+    <nz-input-group [nzPrefix]="suffixIconSearch" [nzSuffix]="inputClearTpl" [nzSize]="'large'" class="search">
+        <input type="text" nz-input placeholder="Buscar" [(ngModel)]="inputValue" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+    <ng-template #inputClearTpl>
+        <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="inputValue"
+            (click)="inputValue = null"></i>
+    </ng-template>
+
+    <ng-container *ngIf="products.length == 0">
+        <nz-space nzSize="middle">
+            <nz-skeleton-element nzType="image" [nzActive]="true"></nz-skeleton-element>
+        </nz-space>
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+    </ng-container>
 
 
-<nz-list nzItemLayout="vertical" [nzLoading]="!products" nzGrid>
     <div nz-row [nzGutter]="16" style="justify-content: space-around;">
         <div nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6" [nzMd]="8" [nzSm]="12" [nzXs]="24"
             *ngFor="let product of products; trackBy: trackByFn">

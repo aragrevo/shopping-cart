@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -13,7 +14,9 @@ import { WelcomeComponent } from './welcome.component';
     WelcomeRoutingModule,
     CommonModule,
     NgZorroAntdModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [WelcomeComponent],
   exports: [WelcomeComponent]

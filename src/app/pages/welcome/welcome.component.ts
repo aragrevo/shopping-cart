@@ -10,6 +10,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class WelcomeComponent implements OnInit {
 
   products: IProduct[] = [];
+  inputValue = null;
 
   constructor(
     private productsService: ProductsService
