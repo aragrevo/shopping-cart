@@ -10,63 +10,50 @@ import { ProductCarts } from '../models/product-carts';
   providedIn: 'root'
 })
 export class CartService {
-  private products: IProduct[] = [];
   private productsInCart: IProductCart[] = [];
-  private cart = new BehaviorSubject<IProduct[]>([]);
-  private cartMapped = new BehaviorSubject<IProductCart[]>([]);
+  private _cart = new BehaviorSubject<IProductCart[]>([]);
 
-  cart$ = this.cart.asObservable();
-  cartMapped$ = this.cartMapped.asObservable();
+  cart$ = this._cart.asObservable();
 
   constructor(
     private db: AngularFirestore,
   ) { }
 
+
+  private transmitter() {
+    this._cart.next(this.productsInCart);
+  }
+
   clearCart() {
-    this.products = [];
-    this.mapProducts();
-    this.cart.next(this.products);
+    this.productsInCart = [];
+    this.transmitter();
   }
 
   addProductToCart(product: IProduct) {
-    this.products = [...this.products, product];
-    this.mapProducts();
-    this.cart.next(this.products);
-  }
-
-  removeProductToCart(productId: number) {
-    this.products = this.products.filter(p => p.id !== productId);
-    this.mapProducts();
-    this.cart.next(this.products);
-  }
-
-  updateProductToCart(product: IProductCart) {
-    // TODO: al actualizar se cambia el orden
-    this.products = this.products.filter(p => p.id !== product.id);
-    for (let index = 0; index < product.Quantity; index++) {
-      this.products = [...this.products, product];
-    }
-    this.mapProducts();
-    this.cart.next(this.products);
-  }
-
-  private mapProducts() {
-    const productsCart: IProductCart[] = [];
-    this.productsInCart = this.products.reduce((acc, product) => {
-      const existedProduct = acc.find(p => p.id === product.id);
-      if (existedProduct) {
-        existedProduct.Quantity += 1;
-        return acc;
-      }
-      acc.push({
+    const hasProduct = this.productsInCart.find(p => p.id === product.id);
+    if (hasProduct) {
+      hasProduct.Quantity = hasProduct.Quantity + 1;
+    } else {
+      this.productsInCart.push({
         ...product,
         Quantity: 1,
         Price: product.sku % 1000
       });
-      return acc;
-    }, productsCart);
+    }
+    this.transmitter();
+  }
 
-    this.cartMapped.next(this.productsInCart);
+  removeProductToCart(productId: number) {
+    this.productsInCart = this.productsInCart.filter(p => p.id !== productId);
+    this.transmitter();
+  }
+
+  updateProductToCart(product: IProductCart) {
+    const hasProduct = this.productsInCart.find(p => p.id === product.id);
+    if (hasProduct) {
+      hasProduct.Quantity = product.Quantity;
+    }
+    this.transmitter();
   }
 
   createCart(cart: Cart) {

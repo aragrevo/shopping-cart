@@ -23,7 +23,7 @@ export class ProductItemComponent implements OnInit {
     private drawerService: NzDrawerService
   ) {
 
-    this.quantity$ = this.cartService.cartMapped$.pipe(
+    this.quantity$ = this.cartService.cart$.pipe(
       map(products => products.find(product => product.id == this.product?.id)?.Quantity)
     )
 

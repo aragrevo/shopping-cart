@@ -33,7 +33,8 @@ export class HeaderComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
   ) {
-    this.total$ = this.cartService.cart$.pipe(map(products => products.length));
+    this.total$ = this.cartService.cart$.pipe(
+      map(products => products.reduce((acc, product) => acc + product.Quantity, 0)));
     this.user$ = this.authService.hasUser();
     this.breakpointObserver.observe([
       '(max-width: 426px)'

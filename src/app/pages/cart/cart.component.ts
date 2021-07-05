@@ -34,7 +34,7 @@ export class CartComponent implements OnInit, OnDestroy {
   ) {
     this.resetSummary();
     this.user$ = this.authService.hasUser();
-    this.products$ = this.cartService.cartMapped$
+    this.products$ = this.cartService.cart$
     this.Subs = this.products$.subscribe(data => this.calculateValues(data));
     this.breakpointObserver.observe([
       '(max-width: 426px)'
