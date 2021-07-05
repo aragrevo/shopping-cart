@@ -3,7 +3,7 @@
 <nz-list nzItemLayout="vertical" [nzLoading]="products.length == 0" nzGrid
     [nzDataSource]="(products | filterProducts:inputValue)">
     <nz-input-group [nzPrefix]="suffixIconSearch" [nzSuffix]="inputClearTpl" [nzSize]="'large'" class="search">
-        <input type="text" nz-input placeholder="Buscar" [(ngModel)]="inputValue" />
+        <input type="text" nz-input placeholder="¿Qué buscas?" [(ngModel)]="inputValue" />
     </nz-input-group>
     <ng-template #suffixIconSearch>
         <i nz-icon nzType="search" class="search-icon"></i>

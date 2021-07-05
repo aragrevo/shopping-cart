@@ -1,5 +1,5 @@
 <ng-container *ngIf="product">
-    <nz-card nzHoverable [nzCover]="coverTemplate" [nzLoading]="!product" style="border-radius: 10%;">
+    <nz-card nzHoverable [nzCover]="coverTemplate" [nzLoading]="!product">
         <nz-card-meta [nzTitle]="product.nombre"></nz-card-meta>
         <div class="price_section">
             <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzTitle]="'Precio'" [nzPrefix]="'$'"
@@ -10,10 +10,8 @@
             </nz-badge>
         </div>
         <ng-template #coverTemplate>
-            <img [alt]="product.nombre" style="border-radius: 10%;"
-                [src]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" />
-            <button nz-button nzShape="circle" nzType="primary" class="button_detail" (click)="handleDetail(product)"><i
-                    nz-icon nzType="more"></i></button>
+            <img [alt]="product.nombre" style="border-radius: 10%; cursor: pointer;" nz-button
+                (click)="handleDetail(product)" [src]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" />
         </ng-template>
     </nz-card>
 </ng-container>

@@ -1,9 +1,10 @@
-.ant-card-body {
-  overflow: hidden;
+nz-card {
+  cursor: default;
+  border-radius: 10%;
 }
 
-.ant-card-cover {
-  position: relative;
+.ant-card-body {
+  overflow: hidden;
 }
 
 .price_section {
