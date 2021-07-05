@@ -5,13 +5,13 @@
             <nz-statistic [nzValue]="((product.sku %1000) | number: '1.0-2')!" [nzTitle]="'Precio'" [nzPrefix]="'$'"
                 [nzValueStyle]="{ fontSize: '1rem' }">
             </nz-statistic>
-            <nz-badge [nzCount]="(quantity$ | async) || 0" style="margin-right: 24px;">
+            <nz-badge [nzCount]="(quantity$ | async)!">
                 <button nz-button nzType="default" nzShape="round" (click)="handleAddProduct(product)">Agregar</button>
             </nz-badge>
         </div>
         <ng-template #coverTemplate>
-            <img [alt]="product.nombre" style="border-radius: 10%;" nz-image
-                [nzSrc]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" [nzPlaceholder]="placeholder" />
+            <img [alt]="product.nombre" style="border-radius: 10%;"
+                [src]="'https://www.freetogame.com/g/'+product.id+'/thumbnail.jpg'" />
         </ng-template>
     </nz-card>
 </ng-container>

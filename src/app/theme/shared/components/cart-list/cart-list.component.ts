@@ -1,15 +1,7 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NzTableSortOrder, NzTableSortFn } from 'ng-zorro-antd/table';
-import { Observable } from 'rxjs';
 import { IProductCart } from 'src/app/models/iproduct-cart';
 
-
-interface ColumnItem {
-  name: string;
-  sortOrder: NzTableSortOrder | null;
-  sortFn?: NzTableSortFn | null;
-  sortDirections?: NzTableSortOrder[];
-}
 
 @Component({
   selector: 'app-cart-list',
@@ -23,28 +15,15 @@ export class CartListComponent implements OnInit {
   @Output() onChangeQty: EventEmitter<IProductCart> = new EventEmitter();
   @Output() remove: EventEmitter<number> = new EventEmitter();
 
-  listOfColumns: ColumnItem[] = [
-    {
-      name: 'Producto',
-      sortOrder: null,
-      sortFn: (a: IProductCart, b: IProductCart) => a.nombre.localeCompare(b.nombre),
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: 'Precio',
-      sortOrder: 'descend',
-    },
-    {
-      name: 'Cantidad',
-      sortOrder: null,
-    },
-    {
-      name: 'Subtotal',
-      sortOrder: null,
-    }
-  ];
+  isSmallScreen = false;
 
-  constructor() { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+  ) {
+    this.breakpointObserver.observe([
+      '(max-width: 426px)'
+    ]).subscribe(result => this.isSmallScreen = result.matches);
+  }
 
   ngOnInit(): void {
   }

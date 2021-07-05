@@ -1,17 +1,17 @@
 <nz-page-header nzBackIcon nzTitle="Mi Carrito"></nz-page-header>
-<nz-steps [nzCurrent]="current">
+<nz-steps [nzCurrent]="current" [nzSize]="isSmallScreen ?'small' : 'default'"
+    [nzDirection]="isSmallScreen ?'vertical':'horizontal'">
     <nz-step nzTitle="Acceso" [nzDescription]="(user$ | async)?.email"></nz-step>
-    <nz-step nzTitle="Confirmar">
-    </nz-step>
+    <nz-step nzTitle="Confirmar"></nz-step>
     <nz-step nzTitle="Pagar"></nz-step>
 </nz-steps>
 <div class="steps-content">
     <div nz-row *ngIf="current === 1">
-        <div nz-col nzFlex="3" class="ph-1">
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="16" nzXl="16" class="ph-1">
             <app-cart-list [products]="(products$ | async)!" (onChangeQty)="onChangeQuantity($event)"
                 (remove)="handleRemoveProduct($event)"></app-cart-list>
         </div>
-        <div nz-col nzFlex="1" class="ph-1">
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="8" nzXl="8" class="ph-1">
             <app-cart-summary [cartSummary]="cartSummary" [isSaving]="isSaving" (finish)="handleFinish()">
             </app-cart-summary>
         </div>

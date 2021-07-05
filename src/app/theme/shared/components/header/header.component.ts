@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     this.total$ = this.cartService.cart$.pipe(map(products => products.length));
     this.user$ = this.authService.hasUser();
     this.breakpointObserver.observe([
-      '(max-width: 425px)'
+      '(max-width: 426px)'
     ]).subscribe(result => this.isSmallScreen = !result.matches);
   }
 

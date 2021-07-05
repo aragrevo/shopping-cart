@@ -1,9 +1,10 @@
-<nz-table #nzTable [nzData]="products" nzTableLayout="fixed">
+<nz-table #nzTable [nzData]="products" nzTableLayout="fixed" [nzSize]="isSmallScreen ? 'small':'default'">
     <thead>
         <tr>
-            <th *ngFor="let column of listOfColumns">
-                {{ column.name }}
-            </th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
         </tr>
     </thead>
     <tbody>
@@ -15,15 +16,15 @@
                 </nz-statistic>
             </td>
             <td>
-                <nz-input-number [(ngModel)]="data.Quantity" [nzSize]="'large'" [nzMin]="1" [nzStep]="1"
-                    (ngModelChange)="onChangeQuantity(data)"></nz-input-number>
+                <nz-input-number [(ngModel)]="data.Quantity" [nzSize]="isSmallScreen ? 'small':'large'" [nzMin]="1"
+                    [nzStep]="1" (ngModelChange)="onChangeQuantity(data)"></nz-input-number>
             </td>
             <td class="action">
                 <nz-statistic [nzValue]="(data.Quantity * data.Price | number: '1.0-2')!" [nzPrefix]="'$'"
                     [nzValueStyle]="{ fontSize: '1rem' }">
                 </nz-statistic>
-                <button nz-button nzType="default" nzShape="circle" (click)="handleRemoveProduct(data.id)"><i nz-icon
-                        nzType="close"></i></button>
+                <button nz-button nzType="default" nzShape="circle" (click)="handleRemoveProduct(data.id)"
+                    [nzSize]="isSmallScreen ? 'small':'default'"><i nz-icon nzType="close"></i></button>
             </td>
         </tr>
     </tbody>

@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
@@ -19,6 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cartSummary!: CartSummary;
   current = 1;
   isSaving = false;
+  isSmallScreen = false;
   products$: Observable<IProductCart[]>;
   Subs: Subscription;
   user$: Observable<any | null>;
@@ -28,11 +30,15 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private cartService: CartService,
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.resetSummary();
     this.user$ = this.authService.hasUser();
     this.products$ = this.cartService.cartMapped$
     this.Subs = this.products$.subscribe(data => this.calculateValues(data));
+    this.breakpointObserver.observe([
+      '(max-width: 426px)'
+    ]).subscribe(result => this.isSmallScreen = result.matches);
   }
   ngOnDestroy(): void {
     this.Subs.unsubscribe();
@@ -132,3 +138,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 }
+
+
+// TODO: buscador
