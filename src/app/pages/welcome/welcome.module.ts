@@ -6,6 +6,7 @@ import { NgZorroAntdModule } from 'src/app/ng-zorro-antd.module';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { FilterProductsPipe } from 'src/app/theme/shared/pipes/filter.pipe';
 import { WelcomeComponent } from './welcome.component';
 
 
@@ -19,6 +20,7 @@ import { WelcomeComponent } from './welcome.component';
     FormsModule
   ],
   declarations: [WelcomeComponent],
-  exports: [WelcomeComponent]
+  exports: [WelcomeComponent],
+  providers: [FilterProductsPipe]
 })
 export class WelcomeModule { }

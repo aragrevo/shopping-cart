@@ -12,10 +12,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { CartListComponent } from './components/cart-list/cart-list.component';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { FilterProductsPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
-  declarations: [ProductItemComponent, HeaderComponent, RegisterComponent, CartListComponent, CartSummaryComponent, PaymentComponent],
+  declarations: [ProductItemComponent, HeaderComponent, RegisterComponent, CartListComponent, CartSummaryComponent, PaymentComponent, FilterProductsPipe],
   imports: [
     CommonModule,
     RouterModule,
@@ -31,6 +32,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     CartListComponent,
     CartSummaryComponent,
     PaymentComponent,
+    FilterProductsPipe
   ]
 })
 export class SharedModule { }
