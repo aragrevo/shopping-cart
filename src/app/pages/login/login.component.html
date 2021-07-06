@@ -3,7 +3,7 @@
         <nz-card nzHoverable class="login-form">
             <h2 nz-typography>Hola!</h2>
             <h2 nz-typography>Bienvenido!</h2>
-            <form nz-form (ngSubmit)="submitForm()" autocomplete="off" #loginForm="ngForm">
+            <form nz-form (ngSubmit)="submitForm()" autocomplete="off" #loginForm="ngForm" [nzNoColon]="true">
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Ingrese un correo!">
                         <nz-form-label [nzSpan]="null">Correo electrónico</nz-form-label>

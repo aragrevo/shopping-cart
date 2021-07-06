@@ -1,21 +1,9 @@
 import { CartGuard } from './guards/cart.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthComponent } from './theme/layout/auth/auth.component';
 import { ShoppingComponent } from './theme/layout/shopping/shopping.component';
 
 const routes: Routes = [
-  {
-    path: 'auth',
-    component: AuthComponent,
-    children: [
-      { path: 'auth', redirectTo: 'auth/login', pathMatch: 'full' },
-      {
-        path: 'login',
-        loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
-      },
-    ]
-  },
   {
     path: '',
     component: ShoppingComponent,
@@ -28,7 +16,8 @@ const routes: Routes = [
         path: 'cart',
         canActivate: [CartGuard],
         loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartModule)
-      }
+      },
+      { path: '**', redirectTo: 'welcome' },
     ]
   }
 
