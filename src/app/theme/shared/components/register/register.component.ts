@@ -1,10 +1,13 @@
-import { LoginComponent } from './../../../../pages/login/login.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
 import { IUser } from 'src/app/models/iuser';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoginComponent } from './../../../../pages/login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('registerForm', { static: false })
   registerForm!: NgForm;
-  user: IUser = { email: 'eduver_san@hotmail.com', password: '123456' }
+  user: IUser = { email: '', password: '' }
 
   passwordVisible = false;
   password2Visible = false;
@@ -28,7 +31,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private notification: NzNotificationService,
     private authService: AuthService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -40,10 +44,13 @@ export class RegisterComponent implements OnInit {
       this.createBasicNotification('Formulario Inválido')
       return;
     }
-    console.log(this.registerForm.form.value);
     const { email, password } = this.registerForm.form.value;
     this.authService.createUser(email, password)
-      .then(() => this.modalService.closeAll())
+      .then(() => this.authService.login(email, password))
+      .then(() => {
+        this.message.create('success', `Bienvenido!, ${email}`);
+        this.modalService.closeAll();
+      })
       .catch(() =>
         this.createBasicNotification('La dirección de correo electrónico ya está siendo utilizada por otra cuenta.'));
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -16,7 +17,7 @@ import { RegisterComponent } from 'src/app/theme/shared/components/register/regi
 export class LoginComponent implements OnInit {
   @ViewChild('loginForm', { static: false })
   loginForm!: NgForm;
-  user: IUser = { email: 'eduver_san@hotmail.com', password: '123456' }
+  user: IUser = { email: '', password: '' }
 
   passwordVisible = false;
   customSettingsModal = {
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     private notification: NzNotificationService,
     private authService: AuthService,
     private modalService: NzModalService,
+    private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,10 @@ export class LoginComponent implements OnInit {
     }
     const { email, password } = this.loginForm.form.value
     this.authService.login(email, password)
-      .then(() => this.modalService.closeAll())
+      .then(() => {
+        this.message.create('success', `Bienvenido!, ${email}`);
+        this.modalService.closeAll();
+      })
       .catch(() => this.createBasicNotification('Correo ó contraseña incorrectos'));
   }
 
