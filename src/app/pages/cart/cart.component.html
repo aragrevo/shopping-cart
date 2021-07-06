@@ -17,7 +17,7 @@
         </div>
     </div>
     <div *ngIf="current == 2" class="payment">
-        <app-payment [summary]="cartSummary" [isSaving]="isSaving" [cart]="cart" [user]="user$ | async"
+        <app-payment [summary]="cartSummary" [isSaving]="isSaving" [cart]="cartService.cart" [user]="user$ | async"
             (onBack)="handleBack()" (onPay)="handlePay()"></app-payment>
     </div>
     <div *ngIf="current == 3" class="payment">

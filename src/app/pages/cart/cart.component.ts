@@ -16,7 +16,7 @@ import { CartSummary } from 'src/app/theme/shared/components/cart-summary/cart-s
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  cart!: Cart;
+
   cartSummary!: CartSummary;
   current = 1;
   isSaving = false;
@@ -29,7 +29,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private cartService: CartService,
+    public cartService: CartService,
     private breakpointObserver: BreakpointObserver,
   ) {
     this.resetSummary();
@@ -78,23 +78,23 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.isSaving = true;
 
-    if (!this.cart) {
-      this.cart = {
+    if (!this.cartService.cart) {
+      this.cartService.cart = {
         id: '-1',
         status: StatusCart.pending
       }
     }
 
-    // TODO: al actualizar se deben traer de firebase
     try {
-      if (this.cart.id == '-1')
-        await this.newCart();
+      (this.cartService.cart.id == '-1')
+        ? await this.newCart()
+        : await this.editCart()
 
-      const products = await this.getProducts(this.cart.id);
+      const products = await this.getProducts(this.cartService.cart.id);
       products.forEach(async product => {
         await this.cartService.saveProductCarts(product)
       });
-      await this.cartService.updateCart(this.cart);
+      await this.cartService.updateCart(this.cartService.cart);
       this.current = 2;
     } catch (error) {
       console.log(error)
@@ -103,8 +103,17 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   async newCart() {
-    const response = await this.cartService.createCart(this.cart)
-    this.cart.id = response.id;
+    const response = await this.cartService.createCart(this.cartService.cart)
+    this.cartService.cart.id = response.id;
+  }
+
+  async editCart() {
+    const ids = await this.cartService.getProductsOfCart(this.cartService.cart.id)
+
+    ids.forEach(async id => {
+      await this.cartService.deleteProductOfCart(id)
+    })
+
   }
 
   getProducts(cart_id: string): Promise<ProductCarts[]> {
@@ -128,8 +137,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   handlePay() {
     this.isSaving = true;
-    this.cart.status = StatusCart.completed;
-    this.cartService.updateCart(this.cart)
+    this.cartService.cart.status = StatusCart.completed;
+    this.cartService.updateCart(this.cartService.cart)
       .then(() => {
         this.cartService.clearCart();
         this.current = 3;

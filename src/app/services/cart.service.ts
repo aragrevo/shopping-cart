@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { map, tap, first } from 'rxjs/operators';
 import { Cart } from '../models/cart';
 import { IProduct } from '../models/iproduct';
 import { IProductCart } from '../models/iproduct-cart';
 import { ProductCarts } from '../models/product-carts';
+import { StatusCart } from '../models/status-cart.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class CartService {
   private productsInCart: IProductCart[] = [];
   private _cart = new BehaviorSubject<IProductCart[]>([]);
 
+  cart!: Cart;
   cart$ = this._cart.asObservable();
 
   constructor(
@@ -26,6 +29,10 @@ export class CartService {
 
   clearCart() {
     this.productsInCart = [];
+    this.cart = {
+      id: '-1',
+      status: StatusCart.pending
+    }
     this.transmitter();
   }
 
@@ -66,5 +73,19 @@ export class CartService {
 
   saveProductCarts(productCard: ProductCarts) {
     return this.db.collection<ProductCarts>('product_carts').add(productCard)
+  }
+
+  getProductsOfCart(cartId: string) {
+    return this.db.collection<ProductCarts>("product_carts", r => r.where("cart_id", "==", cartId))
+      .snapshotChanges()
+      .pipe(
+        map(data => data.map(x => x.payload.doc.id)),
+        first()
+      )
+      .toPromise()
+  }
+
+  deleteProductOfCart(id: string) {
+    return this.db.collection<ProductCarts>('product_carts').doc(id).delete();
   }
 }
